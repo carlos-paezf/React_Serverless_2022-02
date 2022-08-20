@@ -31,4 +31,20 @@ Compilación de trabajos realizados en la electiva aplicada REACT Serverless dur
   npx create-react-app my-app --template typescript
   ```
 
+  También podemos crear un proyecto usando pnpm, con el siguiente comando:
+
+  ```txt
+  pnpm create react-app my-app --template typescript
+  ```
+
+  Para ejecutar un proyecto de React, podemos usar los siguientes comandos:
+
+  ```txt
+  npm start
+  ```
+
+  ```txt
+  pnpm start
+  ```
+
 - [Visual Studio Code](https://code.visualstudio.com/download) (También se puede usar [VSCode Insiders](https://code.visualstudio.com/insiders/)). Editor de código personalizable con múltiples plugins.
