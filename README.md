@@ -25,6 +25,16 @@ Compilación de trabajos realizados en la electiva aplicada REACT Serverless dur
   pnpm -v
   ```
 
+- TypeScript. Para su instalación de manera global podemos usar cualquiera de los siguientes comandos:
+  
+  ```txt
+  npm i -g typescript
+  ```
+  
+  ```txt
+  pnpm i -g typescript
+  ```
+
 - [React](https://create-react-app.dev/docs/getting-started) ([Documentación de React en Español](https://es.reactjs.org/)). Para iniciar un proyecto en React con template de TypeScript, usamos el siguiente comando:
 
   ```txt
