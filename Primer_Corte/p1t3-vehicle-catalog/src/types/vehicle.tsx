@@ -16,7 +16,7 @@ export enum FerrariModels {
 }
 
 
-export type VehicleType = {
+export type VehicleProps = {
     code: string
     license: string
     model: FerrariModels

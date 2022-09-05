@@ -1,21 +1,16 @@
-import { useNavigate } from 'react-router-dom'
+import { FC } from 'react'
+import type { JumbotronProps } from '../types'
 
 
-const Jumbotron = () => {
-    const navigate = useNavigate()
-
-    const handleCatalog = () => {
-        navigate(`/catalog`)
-    }
-
+const Jumbotron: FC<JumbotronProps> = ({ dark = false, title, msg, children }) => {
     return (
-        <div className="p-5 m-4 bg-light rounded-3">
+        <div className={ `p-5 ${ dark ? 'bg-dark' : 'bg-light' }` }>
             <div className="container-fluid py-5">
-                <h1 className="display-5 fw-bold">Gama Ferrari</h1>
-                <p className="col-md-8 fs-4">Catalogo de Vehículos. Exposición de vehículos marca Ferrari modelos 2022</p>
-                <button className="btn btn-dark btn-lg" type="button" onClick={handleCatalog}>Ir al catalogo de vehículos</button>
+                <h1 className={ `display-5 fw-bold ${ dark && 'text-white' }` }>{ title }</h1>
+                <p className={ `col-md-8 fs-4 ${ dark && 'text-white' }` }>{ msg }</p>
+                { children }
             </div>
-        </div>
+        </div >
     )
 }
 
