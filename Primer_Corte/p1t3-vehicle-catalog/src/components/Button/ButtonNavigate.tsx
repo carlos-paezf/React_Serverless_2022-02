@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useNavigate } from "react-router-dom";
-import type { ButtonNavigateProps } from "../types";
+import type { ButtonNavigateProps } from "../../types";
 
 
 const ButtonNavigate: FC<ButtonNavigateProps> = ({ text, navigateUrl, className = "btn btn-dark btn-lg" }) => {

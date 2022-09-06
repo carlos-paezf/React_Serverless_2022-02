@@ -1,5 +1,5 @@
 import { FC } from "react"
-import { ImageModalProps } from "../types"
+import { ImageModalProps } from "../../types"
 
 
 const ImageModal: FC<ImageModalProps> = ({ code, model, photo }) => {

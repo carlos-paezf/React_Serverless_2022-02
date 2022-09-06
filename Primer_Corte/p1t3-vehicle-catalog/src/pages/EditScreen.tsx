@@ -1,29 +1,29 @@
 import { useParams } from "react-router-dom"
-import DetailVehicle from "../components/DetailVehicle"
-import Loading from "../components/Loading"
-import Title from "../components/Title"
 import { useGetVehicleByCode } from "../hooks/useGetVehicleByCode"
-import NotFoundScreen from "./NotFoundScreen"
+import Title from '../components/Title';
+import Loading from "../components/Loading";
+import NotFoundScreen from "./NotFoundScreen";
+import FormEditVehicle from "../components/FormEditVehicle";
 
 
-const DetailScreen = () => {
+const EditScreen = () => {
     const { vehicleId } = useParams()
 
     const { data, isError, isFetching } = useGetVehicleByCode(vehicleId!)
 
     return (
         <>
-            <Title title={ `Detalles del modelo "${ data?.model }"` } />
+            <Title title={ `Formulario de edición del modelo "${ data?.model }"` } />
             {
                 isFetching
                     ? <Loading />
                     : isError
                         ? <NotFoundScreen />
-                        : <DetailVehicle { ...data! } />
+                        : <FormEditVehicle { ...data! } />
             }
         </>
     )
 }
 
 
-export default DetailScreen
+export default EditScreen

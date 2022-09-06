@@ -1,4 +1,4 @@
-import ButtonNavigate from '../components/ButtonNavigate';
+import ButtonNavigate from '../components/Button/ButtonNavigate';
 import Jumbotron from '../components/Jumbotron';
 import homeScreenInternalProps from '../util/home-screen-props'
 

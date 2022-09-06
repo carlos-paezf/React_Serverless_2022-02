@@ -1,5 +1,5 @@
 import { FC } from "react"
-import ButtonBack from "./ButtonBack"
+import ButtonBack from "./Button/ButtonBack"
 
 
 const Title: FC<{ title: string }> = ({ title }) => {

@@ -1,5 +1,5 @@
 import Error404 from '../assets/Error404.png'
-import ButtonNavigate from '../components/ButtonNavigate';
+import ButtonNavigate from '../components/Button/ButtonNavigate';
 
 
 const NotFoundScreen = () => {

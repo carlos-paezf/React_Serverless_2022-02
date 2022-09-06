@@ -1,7 +1,7 @@
 import { FC } from "react"
 import { VehicleProps } from "../types";
-import ButtonNavigate from './ButtonNavigate';
-import ImageModal from "./ImageModal";
+import ButtonNavigate from './Button/ButtonNavigate';
+import ImageModal from "./Modal/ImageModal";
 
 
 const VehicleCard: FC<VehicleProps> = ({ code, license, model, photo, logo }) => {
