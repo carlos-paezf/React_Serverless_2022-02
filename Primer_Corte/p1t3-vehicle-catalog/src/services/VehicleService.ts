@@ -43,7 +43,7 @@ class VehicleService {
             const vehicle = await this.getVehicleByCode(code)
             setTimeout(() => {
                 if (!vehicle) return reject(new Error('No se ha encontrado ningún vehículo con el código ingresado'))
-                const vehicleEdit = { ...vehicle, code, ...rest }
+                const vehicleEdit = { ...vehicle, code, ...rest } as VehicleProps
                 resolve(vehicleEdit)
             }, 1000)
         })
