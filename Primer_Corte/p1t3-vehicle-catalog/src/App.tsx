@@ -1,9 +1,13 @@
-import AppRouter from './router/AppRouter';
+import AppRouter from './util/router/AppRouter';
+
+import { VehicleContextProvider } from './util/context/VehicleContext';
 
 
 const App = () => {
     return (
-        <AppRouter></AppRouter>
+        <VehicleContextProvider>
+            <AppRouter />
+        </VehicleContextProvider>
     )
 }
 
