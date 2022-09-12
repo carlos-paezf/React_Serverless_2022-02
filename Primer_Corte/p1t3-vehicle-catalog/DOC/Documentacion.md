@@ -1,5 +1,7 @@
 # Documentación [Catalogo de Vehículos (Ferrari)](https://react-serverles-vehicle-catalog.netlify.app/)
 
+[![Netlify Status](https://api.netlify.com/api/v1/badges/440c0c98-f4d3-4c95-9cc8-aca4786d2dbd/deploy-status)](https://app.netlify.com/sites/react-serverles-vehicle-catalog/deploys)
+
 ## Inicio del proyecto
 
 El proyecto se creo con el siguiente comando:

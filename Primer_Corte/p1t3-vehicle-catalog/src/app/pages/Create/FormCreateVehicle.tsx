@@ -35,7 +35,7 @@ const FormCreateVehicle = () => {
      */
     const handleCreate = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        if (model.trim() === '' || license.trim() === '' || photo.trim() || logo.trim()) {
+        if (model.trim() === '' || license.trim() === '') {
             alert('No se pueden enviar campos en blanco')
         } else {
             dispatch(createAction({ ...vehicle }))
