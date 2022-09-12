@@ -1,4 +1,4 @@
-import Error404 from '../assets/Error404.png'
+import Error404 from '../../assets/Error404.png'
 import ButtonNavigate from '../components/Button/ButtonNavigate'
 
 

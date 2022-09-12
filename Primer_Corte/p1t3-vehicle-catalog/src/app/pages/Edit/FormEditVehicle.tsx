@@ -26,7 +26,7 @@ const FormEditVehicle: FC<VehicleProps> = (props) => {
      */
     const handleEdit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault()
-        if (model.trim() === '' || license.trim() === '' || photo.trim() || logo.trim()) {
+        if (model.trim() === '' || license.trim() === '') {
             alert('No se pueden enviar campos en blanco')
         } else {
             dispatch(editAction({ ...vehicle }))

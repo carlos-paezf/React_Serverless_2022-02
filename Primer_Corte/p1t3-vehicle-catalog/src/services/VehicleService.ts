@@ -1,6 +1,8 @@
-import { VehicleProps } from "../types";
-import { VehiclesMocks } from "../util/vehicles.mock";
 import { v4 as uuid } from 'uuid';
+
+import { VehiclesMocks } from '../util/mocks/vehicles.mock';
+
+import type { VehicleProps } from '../util/types';
 
 
 class VehicleService {
