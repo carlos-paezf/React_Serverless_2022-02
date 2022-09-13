@@ -374,3 +374,107 @@ Como en este proyecto no estamos conectados a un backend real, sino que estamos 
             }
         }
         ```
+
+## Subir imágenes en Base64
+
+En nuestro modelo tenemos 2 campos de tipo string, los cuales se están empleando para almacenar imágenes en Base64, el problema actual es como subir los archivos, codificarlos a la base requerida, y almacenarlos en el nuevo registro.
+
+Lo primero que vamos a hacer, es definir una función que nos permita la lectura y retorno de los archivos en Base64. Dicho método recibe un archivo y retorna una promesa que resuelve el resultado del archivo luego del evento `onload`, y en caso de error retorna dicha situación. La función fue definida en el archivo `functions/upload-image.ts`:
+
+```ts
+export const uploadImage = async (image: File) => {
+    return new Promise((resolve, reject) => {
+        const fileReader = new FileReader()
+
+        fileReader.readAsDataURL(image)
+        fileReader.onload = () => {
+            resolve(fileReader.result)
+        }
+
+        fileReader.onerror = (error) => {
+            reject(error)
+        }
+    })
+}
+```
+
+Definimos otra función en el archivo `functions/handle-photo.ts`, con la cual recibimos el evento del input del formulario, y un método que se encarga de modificar el estado de un objeto que se pasa por referencia desde el componente que emplee la función que estamos construyendo.
+
+El cuerpo de la función se encarga de analizar si no se cargaron archivos, si el elemento cargado es o no compatible como un patrón de tipo de archivo, y por último hace uso del método creado anteriormente para generar la codificación del archivo, los cuales debemos enviar en tipo String a la función de cambio junto a el evento del input.
+
+```ts
+export const handlePhoto = async (e: FormEvent<HTMLInputElement>, handleChange: Function) => {
+    if (!e.currentTarget.files?.length) return
+
+    const image = e.currentTarget.files![ 0 ]
+
+    if (!image.type.match(/image\/*/)) {
+        alert("Tipo de archivo no permitido")
+        return
+    }
+
+    const decodeImage = await uploadImage(image)
+
+    handleChange(e, String(decodeImage))
+}
+```
+
+¿Por que es importante enviar el evento del input en la función de handleChange? ¿De donde viene esta función? Pues bien, tenemos un hook personalizado para la administración de los datos con los que se interactúan en un formulario.
+
+Dentro del archivo `hooks/useForm.ts`, hemos definimos el hook personalizado, el cual recibe un objeto para un valor inicial con un tipo genérico. Creamos un estado con el valor inicial, el cual será modificado dentro de una función interna llamada `handleChange`, en la cual desestructuramos la propiedad `target` el evento que se le ingresa, y le entregamos de manera opcional un valor en caso de que queramos una modificación personalizada o el control del formulario no este cambiando su propiedad `value`. En cada cambio que se detecte en el evento, modificamos el estado en la propiedad especifica con su valor correspondiente. Por último retornamos el objeto estado y la función de cambio.
+
+```tsx
+export const useForm = <T extends Object>(initialState: T) => {
+    const [ state, setState ] = useState(initialState);
+
+    const handleChange = ({ target }: ChangeEvent<any>, optionalValue?: string) => {
+        const { name, value } = target
+        setState({
+            ...state,
+            [ name ]: optionalValue ?? value
+        })
+    }
+
+    return {
+        state,
+        handleChange
+    }
+} 
+```
+
+La manera en que usaremos todo lo anterior en conjunto, será de la siguiente manera: En el formulario de creación o edición, usamos el hook `useForm`, del cual desestructuramos su estado y la función de cambio, luego definimos una función que se implementará dentro de los controles `input` de tipo `file`, en el cual se captura el evento y se envía en conjunto a la función de cambio del objeto.
+
+En los controles que no están relacionados con archivos, usamos la función `handleChange` en la propiedad `onChange`, asignamos a la propiedad `name` el mismo nombre de la propiedad del objeto que queremos modificar, y en el atributo `value` asignamos el valor que adquiere dicha propiedad del estado.
+
+En los controles de archivos usamos la función `handleFile` en el atributo `onChange`, hacemos la misma estrategia del atributo `name`, pero en este caso no añadimos el atributo `value`, pues este esta siendo enviado de manera personalizada como `decodeImage` dentro de la función `handlePhoto` (explicada anteriormente).
+
+```tsx
+const FormEditVehicle: FC<VehicleProps> = (props) => {
+    const { state: vehicle, handleChange } = useForm<VehicleProps>({ ...props })
+
+    const { model, license, photo, logo } = vehicle
+
+    const handleFile = async (e: FormEvent<HTMLInputElement>) => {
+        await handlePhoto(e, handleChange)
+    }
+
+    return (
+        <form onSubmit={ handleEdit } className="container">
+            <div className="mb-3">
+                <label htmlFor="model" className="form-label">Modelo</label>
+                <input type="text" className="form-control" id="model" name="model" value={ model } onChange={ handleChange } />
+            </div>
+
+            <div className="mb-3">
+                <label htmlFor="photo" className="form-label">Foto</label>
+                <div className="row">
+                    <input type="file" className="form-control col-xs-12 col-md-6" id="photo" name="photo" onChange={ handleFile } accept="image/*" />
+                    <img className="col-xs-12 col-md-6 mt-3" src={ photo } alt={ model } />
+                </div>
+            </div>
+
+            <button type="submit" className="btn btn-primary mt-3">Actualizar modelo</button>
+        </form>
+    )
+}
+```
