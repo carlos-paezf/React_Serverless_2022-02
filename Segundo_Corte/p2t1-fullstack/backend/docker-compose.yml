@@ -1,0 +1,19 @@
+# docker-compose up --build -d
+
+version: '3.8'
+
+services:
+    db_fullstack:
+        image: mysql:5.7
+        restart: always
+        volumes:
+            - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+        command: --init-file=/docker-entrypoint-initdb.d/init.sql
+        ports:
+            - "3333:3306"
+        environment:
+            MYSQL_DATABASE: db_fullstack
+            MYSQL_ROOT_USER: carlos-paezf
+            MYSQL_USER: carlos-paezf
+            MYSQL_ROOT_PASSWORD: 'CL4V3b4s3D4t05'
+            MYSQL_PASSWORD: 'CL4V3b4s3D4t05'
