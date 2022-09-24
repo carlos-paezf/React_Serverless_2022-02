@@ -9,7 +9,7 @@ export class ArtistService extends BaseService<ArtistEntity> {
         super(ArtistEntity)
     }
 
-    public async findArtist(from: number, limit: number, order: string): Promise<[ ArtistEntity[], number ]> {
+    public async findArtists(from: number, limit: number, order: string): Promise<[ ArtistEntity[], number ]> {
         return (await this.execRepository).findAndCount({
             skip: from,
             take: limit,

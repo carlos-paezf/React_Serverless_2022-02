@@ -9,7 +9,7 @@ export class UserService extends BaseService<UserEntity> {
         super(UserEntity)
     }
 
-    public async findUser(from: number, limit: number, order: string): Promise<[ UserEntity[], number ]> {
+    public async findUsers(from: number, limit: number, order: string): Promise<[ UserEntity[], number ]> {
         return (await this.execRepository).findAndCount({
             skip: from,
             take: limit,
