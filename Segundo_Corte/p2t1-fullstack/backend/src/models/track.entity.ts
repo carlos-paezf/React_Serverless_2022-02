@@ -1,7 +1,7 @@
 import { Column, Entity, JoinColumn, JoinTable, ManyToMany, OneToOne } from "typeorm";
 import { BaseEntity } from "../config";
 import { ArtistEntity } from './artist.entity';
-import { StorageEntity } from "./storage.entity";
+import { FileEntity } from "./file.entity";
 
 
 @Entity({ name: `tracks` })
@@ -16,14 +16,10 @@ export class TrackEntity extends BaseEntity {
     isCover!: boolean
 
     @Column()
-    durationStart!: number
+    duration!: number
 
-    @Column()
-    durationEnd!: number
-
-    @OneToOne(() => StorageEntity)
-    @JoinColumn({ name: `storage_id` })
-    mediaId!: StorageEntity
+    @OneToOne(() => FileEntity)
+    mediaId!: FileEntity
 
     @ManyToMany(() => ArtistEntity, (artist) => artist.tracks)
     @JoinTable({

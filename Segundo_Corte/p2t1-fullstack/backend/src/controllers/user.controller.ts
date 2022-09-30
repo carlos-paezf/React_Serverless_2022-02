@@ -48,6 +48,23 @@ export class UserController extends BaseController<UserService> {
         }
     }
 
+    public findUserByUsername = async (req: Request, res: Response): Promise<unknown> => {
+        try {
+            const { username = '' } = req.query
+
+            const data = await this._service.findUserByUsername(String(username).toLowerCase())
+
+            if (!data) return this._httpResponse.NotFound(res, `No hay resultados para el nombre de usuario '${ username }'`)
+
+            return this._httpResponse.Ok(res, {
+                username, data
+            })
+        } catch (error) {
+            console.log(red(`Error en ArtistController:fundUserByUsername: `), error)
+            return this._httpResponse.InternalServerError(res, error)
+        }
+    }
+
     public createUser = async (req: Request, res: Response): Promise<unknown> => {
         try {
             const user = req.body

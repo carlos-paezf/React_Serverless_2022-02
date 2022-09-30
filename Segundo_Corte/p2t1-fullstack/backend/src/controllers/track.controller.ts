@@ -2,10 +2,13 @@ import { red } from "colors";
 import { Request, Response } from "express";
 import { DeleteResult, UpdateResult } from "typeorm";
 import { BaseController } from "../config";
-import { TrackService } from "../services";
+import { ArtistService, TrackService } from "../services";
+import { ArtistEntity } from '../models/artist.entity';
 
 
 export class TrackController extends BaseController<TrackService> {
+    private _artistService = new ArtistService()
+
     constructor() {
         super(TrackService)
     }
@@ -48,11 +51,39 @@ export class TrackController extends BaseController<TrackService> {
         }
     }
 
+    public findTracksByName = async (req: Request, res: Response): Promise<unknown> => {
+        try {
+            const { name = '' } = req.query
+
+            const { 0: data, 1: totalCount } = await this._service.findTracksByName(String(name).toLowerCase())
+
+            if (!data.length) return this._httpResponse.NotFound(res, `No hay resultados para el nombre '${ name }'`)
+
+            return this._httpResponse.Ok(res, {
+                name, totalCount, data
+            })
+        } catch (error) {
+            console.log(red(`Error en TrackController:findTracksByName: `), error)
+            return this._httpResponse.InternalServerError(res, error)
+        }
+    }
+
     public createTrack = async (req: Request, res: Response): Promise<unknown> => {
         try {
-            const track = req.body
+            const { artists } = req.body
 
-            const data = await this._service.createTrack({ ...track })
+            const artistConfirm: ArtistEntity[] = []
+            if (artists.length) {
+                for (const artistId of Array.from(new Set(artists))) {
+                    const art = await this._artistService.findOneArtistById(String(artistId))
+                    if (!art) {
+                        return this._httpResponse.BadRequest(res, `No existe el artista con el id ${ artistId }`)
+                    }
+                    artistConfirm.push(art)
+                }
+            }
+
+            const data = await this._service.saveTrack({ ...req.body, artists: artistConfirm })
 
             return this._httpResponse.Created(res, data)
         } catch (error) {
@@ -77,10 +108,10 @@ export class TrackController extends BaseController<TrackService> {
         }
     }
 
-    public softDeleteTrackById = async (req: Request, res: Response): Promise<unknown> => {
+    public deleteTrackById = async (req: Request, res: Response): Promise<unknown> => {
         try {
             const { idDisabled } = req.params
-            const data: DeleteResult = await this._service.softDeleteTrackById(idDisabled)
+            const data: DeleteResult = await this._service.deleteTrackById(idDisabled)
 
             if (!data.affected) return this._httpResponse.BadRequest(res, `No se pudo remover el id '${ idDisabled }'`)
 

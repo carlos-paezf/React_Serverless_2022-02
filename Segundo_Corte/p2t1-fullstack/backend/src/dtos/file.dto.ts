@@ -3,13 +3,16 @@ import { BaseDTO } from "../config";
 import { TrackEntity } from "../models";
 
 
-export class StorageDTO extends BaseDTO {
+export class FileDTO extends BaseDTO {
     @IsNotEmpty()
-    url!: string
+    mimeType!: string
+
+    @IsNotEmpty()
+    base64!: string
 
     @IsNotEmpty()
     filename!: string
 
     @IsNotEmpty()
-    track!: TrackEntity
+    trackId!: TrackEntity
 }

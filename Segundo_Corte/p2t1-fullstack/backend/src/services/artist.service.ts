@@ -24,10 +24,10 @@ export class ArtistService extends BaseService<ArtistEntity> {
         })
     }
 
-    public async findArtistByName(name: string): Promise<[ ArtistEntity[], number ]> {
+    public async findArtistsByName(name: string): Promise<[ ArtistEntity[], number ]> {
         return (await this.execRepository)
             .createQueryBuilder('artist')
-            .where(`artist.artistName like :name`, { name: `%${ name }` })
+            .where(`artist.artistName like :name`, { name: `%${ name }%` })
             .getManyAndCount()
     }
 

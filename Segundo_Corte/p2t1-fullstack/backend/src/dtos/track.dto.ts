@@ -1,6 +1,6 @@
 import { IsNotEmpty } from "class-validator";
 import { BaseDTO } from "../config";
-import { ArtistEntity, StorageEntity } from "../models";
+import { ArtistEntity } from "../models";
 
 
 export class TrackDTO extends BaseDTO {
@@ -14,13 +14,7 @@ export class TrackDTO extends BaseDTO {
     isCover!: boolean
 
     @IsNotEmpty()
-    durationStart!: number
-
-    @IsNotEmpty()
-    durationEnd!: number
-
-    @IsNotEmpty()
-    mediaId!: StorageEntity
+    duration!: number
 
     @IsNotEmpty()
     artists!: ArtistEntity[]

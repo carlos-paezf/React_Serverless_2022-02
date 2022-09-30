@@ -3,7 +3,7 @@ import { BaseEntity } from "../config";
 import { RoleEnum } from "../enums/role.enum";
 
 
-@Entity({ name: `user` })
+@Entity({ name: `users` })
 export class UserEntity extends BaseEntity {
     @Column()
     name!: string

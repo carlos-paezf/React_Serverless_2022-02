@@ -1,3 +1,4 @@
+import { red } from "colors";
 import { DeleteResult, UpdateResult } from "typeorm";
 import { BaseService } from "../config";
 import { TrackDTO } from "../dtos";
@@ -13,7 +14,8 @@ export class TrackService extends BaseService<TrackEntity> {
         return (await this.execRepository).findAndCount({
             skip: from,
             take: limit,
-            order: { name: (order === 'ASC') ? 'ASC' : 'DESC' }
+            order: { name: (order === 'ASC') ? 'ASC' : 'DESC' },
+            relations: { artists: true }
         })
     }
 
@@ -24,7 +26,14 @@ export class TrackService extends BaseService<TrackEntity> {
         })
     }
 
-    public async createTrack(body: TrackDTO): Promise<TrackEntity> {
+    public async findTracksByName(name: string): Promise<[ TrackEntity[], number ]> {
+        return (await this.execRepository)
+            .createQueryBuilder('track')
+            .where(`track.name like :name`, { name: `%${ name }` })
+            .getManyAndCount()
+    }
+
+    public async saveTrack(body: TrackDTO): Promise<TrackEntity> {
         return (await this.execRepository).save(body)
     }
 
@@ -32,7 +41,7 @@ export class TrackService extends BaseService<TrackEntity> {
         return (await this.execRepository).update(id, { ...infoUpdate, updatedAt: new Date() })
     }
 
-    public async softDeleteTrackById(id: string): Promise<DeleteResult> {
-        return (await this.execRepository).softDelete(id)
+    public async deleteTrackById(id: string): Promise<DeleteResult> {
+        return (await this.execRepository).delete(id)
     }
 }

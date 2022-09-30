@@ -8,6 +8,7 @@ import { DataSource } from 'typeorm';
 import { blue, green, red } from 'colors'
 
 import { ConfigServer } from "./config";
+import { ArtistRouter, FileRouter, TrackRouter, UserRouter } from './routes';
 
 
 class ServerBootstrap extends ConfigServer {
@@ -38,7 +39,12 @@ class ServerBootstrap extends ConfigServer {
     }
 
     private _routers = (): express.Router[] => {
-        return []
+        return [
+            new ArtistRouter().router,
+            new FileRouter().router,
+            new TrackRouter().router,
+            new UserRouter().router
+        ]
     }
 
     private _listen = () => {

@@ -48,6 +48,23 @@ export class ArtistController extends BaseController<ArtistService> {
         }
     }
 
+    public findArtistsByName = async (req: Request, res: Response): Promise<unknown> => {
+        try {
+            const { name = '' } = req.query
+
+            const { 0: data, 1: totalCount } = await this._service.findArtistsByName(String(name).toLowerCase())
+
+            if (!data.length) return this._httpResponse.NotFound(res, `No hay resultados para el nombre '${ name }'`)
+
+            return this._httpResponse.Ok(res, {
+                name, totalCount, data
+            })
+        } catch (error) {
+            console.log(red(`Error en ArtistController:fundArtistsByName: `), error)
+            return this._httpResponse.InternalServerError(res, error)
+        }
+    }
+
     public createArtist = async (req: Request, res: Response): Promise<unknown> => {
         try {
             const artist = req.body

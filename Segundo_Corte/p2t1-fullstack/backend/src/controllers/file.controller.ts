@@ -2,19 +2,19 @@ import { red } from "colors";
 import { Request, Response } from "express";
 import { DeleteResult, UpdateResult } from "typeorm";
 import { BaseController } from "../config";
-import { StorageService } from "../services";
+import { FileService } from "../services";
 
 
-export class StorageController extends BaseController<StorageService> {
+export class FileController extends BaseController<FileService> {
     constructor() {
-        super(StorageService)
+        super(FileService)
     }
 
-    public findStorages = async (req: Request, res: Response): Promise<unknown> => {
+    public findFiles = async (req: Request, res: Response): Promise<unknown> => {
         try {
             const { from = 0, limit = 10, order = 'ASC' } = req.query
 
-            const { 0: data, 1: totalCount } = await this._service.findStorages(
+            const { 0: data, 1: totalCount } = await this._service.findFiles(
                 Number(from),
                 Number(limit),
                 String(order)
@@ -28,65 +28,65 @@ export class StorageController extends BaseController<StorageService> {
                 data
             })
         } catch (error) {
-            console.log(red(`Error en StorageController:findStorage: `), error)
+            console.log(red(`Error en FileController:findFile: `), error)
             return this._httpResponse.InternalServerError(res, error)
         }
     }
 
-    public findOneStorageById = async (req: Request, res: Response): Promise<unknown> => {
+    public findOneFileById = async (req: Request, res: Response): Promise<unknown> => {
         try {
             const { id } = req.params
 
-            const data = await this._service.findOneStorageById(id)
+            const data = await this._service.findOneFileById(id)
 
             if (!data) return this._httpResponse.NotFound(res, `No hay resultados para el id ${ id }`)
 
             return this._httpResponse.Ok(res, data)
         } catch (error) {
-            console.log(red(`Error en StorageController:findOneStorageById: `), error)
+            console.log(red(`Error en FileController:findOneFileById: `), error)
             return this._httpResponse.InternalServerError(res, error)
         }
     }
 
-    public createStorage = async (req: Request, res: Response): Promise<unknown> => {
+    public createFile = async (req: Request, res: Response): Promise<unknown> => {
         try {
             const storage = req.body
 
-            const data = await this._service.createStorage({ ...storage })
+            const data = await this._service.createFile({ ...storage })
 
             return this._httpResponse.Created(res, data)
         } catch (error) {
-            console.log(red(`Error en StorageController:createStorage: `), error)
+            console.log(red(`Error en FileController:createFile: `), error)
             return this._httpResponse.InternalServerError(res, error)
         }
     }
 
-    public updateStorageById = async (req: Request, res: Response): Promise<unknown> => {
+    public updateFileById = async (req: Request, res: Response): Promise<unknown> => {
         try {
             const { id } = req.params
             const storage = req.body
 
-            const data: UpdateResult = await this._service.updateStorageById(id, { ...storage })
+            const data: UpdateResult = await this._service.updateFileById(id, { ...storage })
 
             if (!data.affected) return this._httpResponse.BadRequest(res, `Los cambios no fueron aplicados`)
 
             return this._httpResponse.Ok(res, data)
         } catch (error) {
-            console.log(red(`Error en StorageController:createStorage: `), error)
+            console.log(red(`Error en FileController:createFile: `), error)
             return this._httpResponse.InternalServerError(res, error)
         }
     }
 
-    public softDeleteStorageById = async (req: Request, res: Response): Promise<unknown> => {
+    public deleteFileById = async (req: Request, res: Response): Promise<unknown> => {
         try {
             const { idDisabled } = req.params
-            const data: DeleteResult = await this._service.softDeleteStorageById(idDisabled)
+            const data: DeleteResult = await this._service.deleteFileById(idDisabled)
 
             if (!data.affected) return this._httpResponse.BadRequest(res, `No se pudo remover el id '${ idDisabled }'`)
 
             return this._httpResponse.Ok(res, data)
         } catch (error) {
-            console.log(red(`Error en StorageController:softDeleteStorageById: `), error)
+            console.log(red(`Error en FileController:softDeleteFileById: `), error)
             return this._httpResponse.InternalServerError(res, error)
         }
     }
