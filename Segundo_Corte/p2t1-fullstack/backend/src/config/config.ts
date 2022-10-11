@@ -20,7 +20,7 @@ export abstract class ConfigServer {
      * @returns The value of the environment variable.
      */
     protected getEnvironment(key: string) {
-        return process.env[ key ]
+        return process.env[key]
     }
 
     /**
@@ -48,12 +48,12 @@ export abstract class ConfigServer {
      * @returns A string that is the path to the environment file.
      */
     protected createPathEnv(path: string): string {
-        const arrEnv: string[] = [ 'env' ]
+        const arrEnv: string[] = ['env']
         if (path.length) {
             const stringToArray: string[] = path.split('.')
             arrEnv.unshift(...stringToArray)
         }
-        return `.${ arrEnv.join('.') }`
+        return `.${arrEnv.join('.')}`
     }
 
     /**

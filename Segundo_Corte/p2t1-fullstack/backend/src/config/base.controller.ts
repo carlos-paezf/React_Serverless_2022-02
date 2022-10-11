@@ -1,6 +1,12 @@
-import { HttpResponse } from "../shared/response/http.response"
+import { HttpResponse } from "../shared/response/http.response";
 
 
+/** 
+ * It's a base class for controllers that provides a constructor that takes 
+ * a service class and an optional HttpResponse class 
+ * 
+ * @author Carlos Páez
+ */
 export class BaseController<T> {
     protected readonly _service: T
 

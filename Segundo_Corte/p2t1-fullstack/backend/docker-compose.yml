@@ -3,7 +3,7 @@
 version: '3.8'
 
 services:
-    db_fullstack:
+    db_actas_fis:
         image: mysql:5.7
         restart: always
         volumes:
@@ -12,8 +12,15 @@ services:
         ports:
             - "3333:3306"
         environment:
-            MYSQL_DATABASE: db_fullstack
+            MYSQL_DATABASE: actas_fis
             MYSQL_ROOT_USER: carlos-paezf
             MYSQL_USER: carlos-paezf
-            MYSQL_ROOT_PASSWORD: 'CL4V3b4s3D4t05'
-            MYSQL_PASSWORD: 'CL4V3b4s3D4t05'
+            MYSQL_ROOT_PASSWORD: 'DOTY0aEnCF2rKcqDfbkL'
+            MYSQL_PASSWORD: 'DOTY0aEnCF2rKcqDfbkL'
+    # app:
+    #     build: .
+    #     ports:
+    #         - 3000:3000
+    #     env_file: .env
+    #     depends_on:
+    #         - db_actas_fis

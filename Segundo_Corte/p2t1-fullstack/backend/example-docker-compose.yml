@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+    db_name:
+        image: mysql:latest
+        # restart: always
+        volumes:
+            - ./sql/init.sql:/docker-entrypoint-initdb.d/init.sql
+        command: --init-file=/docker-entrypoint-initdb.d/init.sql
+        ports:
+            - "5432:5432"
+        environment:
+            MYSQL_DATABASE: db_name
+            MYSQL_ROOT_USER: user
+            MYSQL_USER: user
+            MYSQL_ROOT_PASSWORD: password
+            MYSQL_PASSWORD: password
+    # app:
+    #     build: .
+    #     ports:
+    #         - 3000:3000
+    #     env_file: .env
+    #     depends_on:
+    #         - db_actas_fis
+
+    # volumes:
+    #     db_name:
+    #         driver: local

@@ -1,50 +1,79 @@
 {
-    "name": "backend",
+    "name": "proyecto_actas_backend",
     "version": "1.0.0",
-    "description": "Backend para proyecto de la clase React Serverless",
-    "private": true,
+    "description": "Backend proyecto de Actas de la Facultad de Ingeniería de Sistemas de la Universidad Santo Tomás, seccional Tunja",
     "main": "index.js",
+    "private": true,
+    "engines": {
+        "node": ">=6.2.1"
+    },
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1",
         "start": "tsc && node dist/server.js",
         "start:dev": "tsc && concurrently \"tsc -w\" \"nodemon dist/server.js\"",
+        "start:prod": "SET NODE_ENV=production && npm start",
+        "logs": "cat access.log",
         "typeorm": "typeorm-ts-node-esm -d ./src/config/data.config.ts",
         "m:gen": "npm run typeorm migration:generate",
         "m:run": "npm run typeorm migration:run",
-        "docker-compose": "docker-compose up -d"
+        "m:drop": "npm run typeorm schema:drop",
+        "docker-compose": "docker-compose up -d",
+        "docker-compose:logs": "docker-compose logs -f"
     },
     "repository": {
         "type": "git",
-        "url": "git+https://github.com/carlos-paezf/React_Serverless_2022-02.git"
+        "url": "git+https://github.com/carlos-paezf/USTA-FIS-Actas-Backend.git"
     },
     "keywords": [],
     "author": "https://github.com/carlos-paezf",
     "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/carlos-paezf/USTA-FIS-Actas-Backend/issues"
+    },
+    "homepage": "https://github.com/carlos-paezf/USTA-FIS-Actas-Backend#readme",
     "dependencies": {
+        "@slack/webhook": "^6.1.0",
+        "@types/uuid": "^8.3.4",
+        "bcrypt": "^5.0.1",
         "class-transformer": "^0.5.1",
         "class-validator": "^0.13.2",
         "colors": "^1.4.0",
         "cors": "^2.8.5",
-        "dotenv": "^16.0.2",
+        "dotenv": "^16.0.1",
         "express": "^4.18.1",
-        "express-validator": "^6.14.2",
+        "express-fileupload": "^1.4.0",
+        "express-validator": "^6.14.1",
+        "jsonwebtoken": "^8.5.1",
         "morgan": "^1.10.0",
+        "morgan-body": "^2.6.6",
+        "multer": "1.4.5-lts.1",
         "mysql": "^2.18.1",
+        "passport": "^0.6.0",
+        "passport-jwt": "^4.0.0",
+        "passport-local": "^1.0.0",
         "reflect-metadata": "^0.1.13",
-        "typeorm": "^0.3.10",
+        "typeorm": "^0.3.6",
         "typeorm-naming-strategies": "^4.1.0",
-        "typescript": "^4.8.3",
-        "uuid": "^9.0.0"
+        "typescript": "^4.7.4",
+        "uuid": "^8.3.2"
     },
     "devDependencies": {
+        "@types/bcrypt": "^5.0.0",
         "@types/cors": "^2.8.12",
-        "@types/express": "^4.17.14",
+        "@types/express": "^4.17.13",
+        "@types/express-fileupload": "^1.2.2",
+        "@types/jsonwebtoken": "^8.5.8",
         "@types/morgan": "^1.9.3",
+        "@types/multer": "^1.4.7",
         "@types/node": "*",
-        "@types/uuid": "^8.3.4",
-        "concurrently": "^7.4.0",
-        "eslint": "^8.23.1",
-        "nodemon": "^2.0.20",
-        "ts-node": "^10.9.1"
+        "@types/passport": "^1.0.9",
+        "@types/passport-jwt": "^3.0.6",
+        "@types/passport-local": "^1.0.34",
+        "@typescript-eslint/eslint-plugin": "^5.28.0",
+        "@typescript-eslint/parser": "^5.28.0",
+        "concurrently": "^7.2.2",
+        "eslint": "^8.18.0",
+        "nodemon": "^2.0.16",
+        "ts-node": "^10.8.1"
     }
 }
