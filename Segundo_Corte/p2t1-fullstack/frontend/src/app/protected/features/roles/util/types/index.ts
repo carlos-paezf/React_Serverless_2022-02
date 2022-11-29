@@ -1,0 +1,1 @@
+export type { RoleFormPropsType, RoleType } from './roleType'

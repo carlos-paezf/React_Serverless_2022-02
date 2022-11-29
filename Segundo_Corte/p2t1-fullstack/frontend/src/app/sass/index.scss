@@ -1,1 +1,31 @@
 @import "./config/global";
+@import "./components/form";
+@import "./components/loading";
+@import "./components/table";
+
+code {
+    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+        monospace;
+}
+
+.title-list {
+    display: flex;
+    flex-direction: row;
+    margin: 2rem;
+}
+
+.mini-profile-image {
+    border-radius: 50%;
+    width: 75px;
+    height: 75px;
+}
+
+.profile-image {
+    clip-path: circle(45%);
+    width: 300px;
+    aspect-ratio: 1 / 1;
+}
+
+.mr-2 {
+    margin-right: 0.2rem;
+}

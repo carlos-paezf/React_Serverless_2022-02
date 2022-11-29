@@ -65,6 +65,7 @@ CREATE TABLE `users` (
     `email` varchar(255) NOT NULL,
     `password` varchar(255) NOT NULL,
     `position` varchar(255) NOT NULL,
+    `profile_image` longblob NOT NULL,
     `role_id` varchar(36) NULL,
     UNIQUE INDEX `IDX_fe0bb3f6520ee0469504521e71` (`username`),
     UNIQUE INDEX `IDX_97672ac88f789774dd47f7c8be` (`email`),
@@ -702,6 +703,7 @@ INSERT INTO `users`(
         `email`,
         `password`,
         `position`,
+        `profile_image`,
         `role_id`
     )
 VALUES (
@@ -715,6 +717,7 @@ VALUES (
         "carlos-paezf@usantoto.edu.co",
         "$2b$10$dSbyYv5ok9VBipMkTy7tDOXF5ZeIQCkygOzmiO3o0nl6VkyLH5/qG",
         "Desarrollador",
+        "N/A",
         "developer"
     );
 INSERT INTO `users`(
@@ -728,6 +731,7 @@ INSERT INTO `users`(
         `email`,
         `password`,
         `position`,
+        `profile_image`,
         `role_id`
     )
 VALUES (
@@ -741,6 +745,7 @@ VALUES (
         "test_base@gmail.com",
         "$2b$10$dSbyYv5ok9VBipMkTy7tDOXF5ZeIQCkygOzmiO3o0nl6VkyLH5/qG",
         "Prueba",
+        "N/A",
         "professor"
     );
 INSERT INTO `users`(
@@ -754,6 +759,7 @@ INSERT INTO `users`(
         `email`,
         `password`,
         `position`,
+        `profile_image`,
         `role_id`
     )
 VALUES (
@@ -767,5 +773,6 @@ VALUES (
         "guest@gmail.com",
         "$2b$10$dSbyYv5ok9VBipMkTy7tDOXF5ZeIQCkygOzmiO3o0nl6VkyLH5/qG",
         "Invitado",
+        "N/A",
         "guest"
     );

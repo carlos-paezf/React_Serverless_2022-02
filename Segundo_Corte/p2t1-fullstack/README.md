@@ -71,8 +71,14 @@ En el archivo `package.json` se establecieron los siguientes scripts:
 
 ### Frontend
 
-El proyecto frontend de React se creo con el siguiente comando:
+El proyecto frontend de React se creo con el comando a continuación, el cual permite la creación del proyecto con un template de TypeScript juntamente con Redux:
 
 ```txt
-pnpm create frontend p1t3-vehicle-catalog --template typescript
+pnpm create react-app frontend --template redux-typescript
+```
+
+También estoy usando SASS, por lo que uso el siguiente comando:
+
+```txt
+pnpm i sass -S
 ```
